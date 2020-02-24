@@ -6,7 +6,7 @@ in vec2 fragTexCoord;
 out vec4 color;
 
 uniform float currentTime;
-uniform sampler3D tex;
+uniform sampler2D tex;
 
 void main()
 {
