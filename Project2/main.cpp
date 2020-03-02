@@ -3,6 +3,10 @@
 #include <SOIL.h>
 #include <iostream>
 
+#include "glm.hpp"
+#include "gtc/matrix_transform.hpp"
+#include "gtc/type_ptr.hpp"
+
 #include "ShaderLoader.h"
 
 
@@ -23,6 +27,17 @@ GLuint indices[] = {
 GLuint VBO;
 GLuint EBO;
 GLuint VAO;
+
+using namespace glm;
+
+// Camera Variables
+vec3 camPos = vec3(0.0f, 0.0f, 3.0f);
+vec3 camLookDir = vec3(0.0f, 0.0f, -1.0f);
+vec3 camUpDir = vec3(0.0f, 1.0f, 0.0f);
+
+// Screen/Viewport size
+const unsigned int SCR_WIDTH = 800;
+const unsigned int SCR_HEIGHT = 800;
 
 
 GLint GenerateTextures()
@@ -71,6 +86,38 @@ void Render()
 
 	glBindVertexArray(VAO);		// Bind VAO
 	glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	// Translation Matrix
+	vec3 objPosition = vec3(0.5f, 0.5f, 0.0f);
+	mat4 translationMatrix = translate(mat4(), objPosition);
+
+	// Rotation Matrix
+	vec3 rotationAxisZ = vec3(0.0f, 0.0f, 1.0f);
+	float rotationAngle = 45;
+	mat4 rotationZ = rotate(mat4(), radians(rotationAngle), rotationAxisZ);
+
+	// Scale Matrix
+	vec3 objScale = vec3(0.5f, 0.5f, 0.5f);
+	mat4 scaleMatrix = scale(mat4(), objScale * 1000.0f);
+
+	// Create model matrix to combine them
+	mat4 model = translationMatrix * rotationZ * scaleMatrix;
+	GLuint modelLoc = glGetUniformLocation(program, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
+
+	// View Matrix
+	mat4 view = lookAt(camPos, camPos + camLookDir, camUpDir);
+
+	GLuint viewLoc = glGetUniformLocation(program, "view");
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(view));
+
+	// Orthographic Center Camera
+	mat4 proj;
+	float halfScreenWidth = (float)SCR_WIDTH * 0.5f;
+	float halfScreenHeight = (float)SCR_HEIGHT * 0.5f;
+	proj = ortho(-halfScreenWidth, halfScreenWidth, -halfScreenHeight, halfScreenHeight, 0.1f, 100.0f);
+	GLuint projLoc = glGetUniformLocation(program, "proj");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, value_ptr(proj));
 
 	GLint currentTimeLoc = glGetUniformLocation(program, "currentTime");
 	glUniform1f(currentTimeLoc, currentTime);
@@ -147,7 +194,13 @@ int main(int argc, char** argv)
 		(GLvoid*)(6 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
 
-	
+
+
+	glm::vec3 objPostion = glm::vec3(0.5f, 0.5f, 0.0f);
+	glm::mat4 translationMatrix = glm::translate(glm::mat4(), objPostion);
+
+	GLuint translateLoc = glGetUniformLocation(program, "translation");
+	glUniformMatrix4fv(translateLoc, 1, GL_FALSE, glm::value_ptr(translationMatrix));
 
 	// Register callbacks
 	glutDisplayFunc(Render);

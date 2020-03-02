@@ -7,9 +7,13 @@ layout (location = 2) in vec2 texCoord;
 out vec3 fragColor;
 out vec2 fragTexCoord;
 
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 proj;
+
 void main()
 {
-	gl_Position = vec4(position, 1.0);
-	fragColor = color;
-	fragTexCoord = texCoord;
+    gl_Position = proj * view * model * vec4(position, 1.0);
+    fragColor = color;
+    fragTexCoord = texCoord;
 }

@@ -70,20 +70,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\glm;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;(ProjectDir)\Dependencies\glm;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\glm;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;(ProjectDir)\Dependencies\glm;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\glm;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;(ProjectDir)\Dependencies\glm;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\glm;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\soil;(ProjectDir)\Dependencies\glm;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
