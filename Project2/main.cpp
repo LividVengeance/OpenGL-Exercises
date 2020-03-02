@@ -8,6 +8,7 @@
 #include "gtc/type_ptr.hpp"
 
 #include "ShaderLoader.h"
+#include "CCamera.cpp"
 
 
 GLfloat currentTime;
@@ -89,14 +90,15 @@ void Render()
 
 	// Translation Matrix
 	vec3 objPosition = vec3(0.5f, 0.5f, 0.0f);
-	mat4 translationMatrix = translate(mat4(), objPosition);
+	CCamera camreaOne;
+	camreaOne.Translation(objPosition);
 
 	// Rotation Matrix
 	vec3 rotationAxisZ = vec3(0.0f, 0.0f, 1.0f);
 	float rotationAngle = 45;
-	mat4 rotationZ = rotate(mat4(), radians(rotationAngle), rotationAxisZ);
+	
 
-	// Scale Matrix
+	// Scale Matrix 
 	vec3 objScale = vec3(0.5f, 0.5f, 0.5f);
 	mat4 scaleMatrix = scale(mat4(), objScale * 1000.0f);
 
