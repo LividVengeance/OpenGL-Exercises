@@ -7,8 +7,9 @@ out vec4 color;
 
 uniform float currentTime;
 uniform sampler2D tex;
+uniform sampler2D tex1;
 
 void main()
 {
-	color = texture(tex, fragTexCoord);
+	color = mix(texture(tex, fragTexCoord), texture(tex1, fragTexCoord), abs(sin(currentTime)));
 }
