@@ -3,8 +3,8 @@
 #include<fstream>
 #include<vector>
 
-ShaderLoader::ShaderLoader(void){}
-ShaderLoader::~ShaderLoader(void){}
+ShaderLoader::ShaderLoader(void) {}
+ShaderLoader::~ShaderLoader(void) {}
 
 GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char* fragmentShaderFilename)
 {
@@ -34,7 +34,7 @@ GLuint ShaderLoader::CreateShader(GLenum shaderType, const char* shaderName)
 {
 
 	GLint shaderID = glCreateShader(shaderType);
-	
+
 	std::string shaderString = ReadShaderFile(shaderName);
 
 	const char* CharPointer = shaderString.c_str();
@@ -55,7 +55,7 @@ GLuint ShaderLoader::CreateShader(GLenum shaderType, const char* shaderName)
 	return shaderID;
 }
 
-std::string ShaderLoader::ReadShaderFile(const char *filename)
+std::string ShaderLoader::ReadShaderFile(const char* filename)
 {
 	// Open the file for reading
 	std::ifstream file(filename, std::ios::in);
@@ -87,7 +87,7 @@ void ShaderLoader::PrintErrorDetails(bool isShader, GLuint id, const char* name)
 	std::vector<char> log(infoLogLength);
 
 	// Retrieve the log info and populate log variable
-	(isShader == true) ? glGetShaderInfoLog(id, infoLogLength, NULL, &log[0]) : glGetProgramInfoLog(id, infoLogLength, NULL, &log[0]);		
+	(isShader == true) ? glGetShaderInfoLog(id, infoLogLength, NULL, &log[0]) : glGetProgramInfoLog(id, infoLogLength, NULL, &log[0]);
 	std::cout << "Error compiling " << ((isShader == true) ? "shader" : "program") << ": " << name << std::endl;
 	std::cout << &log[0] << std::endl;
 }

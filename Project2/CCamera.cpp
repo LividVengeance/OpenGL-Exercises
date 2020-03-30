@@ -1,48 +1,31 @@
-#include "glm.hpp"
-#include "gtc/matrix_transform.hpp"
-#include "gtc/type_ptr.hpp"
+#pragma
 
-using namespace glm;
+#include "CCamera.h"
 
-class CCamera
+CCamera::CCamera(GLint program)
 {
-public:
-	CCamera();
-	~CCamera();
+	// Orthographic Center Camera
+	mat4 proj;
 
-	mat4 Translation(vec3 objPosition);
-	mat4 Rotation(vec3 rotationAxis, float angle);
-	mat4 Scale(vec3 objScale);
+	/// Ortho Cam with origin (0,0) in the top left
+	float halfScreenWidth = (float)SCR_WIDTH * 0.5f;
+	float halfScreenHeight = (float)SCR_HEIGHT * 0.5f;
+	proj = ortho(-halfScreenWidth, halfScreenWidth, -halfScreenHeight, halfScreenHeight, 0.1f, 100.0f);
 
-private:
+	/// Ortho Cam with origin (0,0) in the center
+	//proj - ortho(0.0f, (float)SCR_WIDTH, (float)SCR_HEIGHT, 0.0f, 0.1f, 100.0f);
 
-};
-
-CCamera::CCamera()
-{
+	GLuint projLoc = glGetUniformLocation(program, "proj");
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, value_ptr(proj));
 }
 
 CCamera::~CCamera()
 {
 }
 
-mat4 CCamera::Translation(vec3 objPosition)
+mat4 CCamera::CameraView()
 {
-	/// Creates Translation Matrax of Objects Postion
-	mat4 translationMatrix = translate(mat4(), objPosition);
-	return(translationMatrix);
+	mat4 view = lookAt(camPos, camPos + camLookDir, camUpDir);
+	return(view);
 }
 
-mat4 CCamera::Rotation(vec3 rotationAxis, float angle)
-{
-	/// Creates Rotation Matrix Given Angle and Rotation Axis
-	mat4 rotation = rotate(mat4(), radians(angle), rotationAxis);
-	return(rotation);
-}
-
-mat4 CCamera::Scale(vec3 objScale)
-{
-	/// Create Scale Matrix of Object
-	mat4 scaleMatrix = scale(mat4(), objScale * 1000.0f);
-	return(scaleMatrix);
-}

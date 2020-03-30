@@ -142,10 +142,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CCamera.cpp" />
+    <ClCompile Include="CGameManager.cpp" />
+    <ClCompile Include="CInput.cpp" />
+    <ClCompile Include="CObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CCamera.h" />
+    <ClInclude Include="CGameManager.h" />
+    <ClInclude Include="CObject.h" />
     <ClInclude Include="ShaderLoader.h" />
   </ItemGroup>
   <ItemGroup>
