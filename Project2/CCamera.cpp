@@ -29,3 +29,15 @@ mat4 CCamera::CameraView()
 	return(view);
 }
 
+void CCamera::Update(GLfloat deltaTime)
+{
+	timeElapsed += deltaTime;
+	GLfloat radius = 2.0f;
+	camPos.x = sin(timeElapsed) * radius;
+	camPos.y = 1.5f;
+	camPos.z = cos(timeElapsed) * radius;
+
+	glm::mat4 view = glm::lookAt(camPos,
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		camUpDir);
+}

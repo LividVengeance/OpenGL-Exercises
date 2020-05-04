@@ -7,12 +7,12 @@
 // Library Includes
 #include <iostream>
 
-class ShaderLoader
+class CShaderLoader
 {
 
 public:
-	ShaderLoader(void);
-	~ShaderLoader(void);
+	CShaderLoader(void);
+	~CShaderLoader(void);
 	static GLuint CreateProgram(const char* VertexShaderFilename, const char* FragmentShaderFilename);
 
 private:

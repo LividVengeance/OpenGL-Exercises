@@ -3,20 +3,21 @@
 #include <glew.h>
 #include <freeglut.h>
 #include <SOIL.h>
+#include <fmod.hpp>
 #include <iostream>
 
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
 
+#include "CAudio.h"
 #include "CCamera.h"
-#include "CObject.h"
-#include "ShaderLoader.h"
+#include "CInput.h"
+#include "CMesh.h"
+#include "CPyramid.h"
+#include "CTextLabel.h"
+#include "CShaderLoader.h"
 
-
-
-using namespace glm;
-using namespace std;
 
 class CGameManager
 {
@@ -24,19 +25,30 @@ public:
 	CGameManager(int argc, char** argv);
 	~CGameManager();
 
+	void CreateAudioSystem();
+
+	void KeyBoardDown(unsigned char key, int x, int y);
+	void KeyBoardUp(unsigned char key, int x, int y);
+	void MousePassiveMove(int x, int y);
+	void MouseClick(int button, int state, int x, int y);
+	void MouseMove(int x, int y);
+
 	void Update();
 	void Render();
 	void ManagerMain();
-	GLint GenerateTextures();
 
 private:
-	GLuint VBO;
-	GLuint EBO;
-	GLuint VAO;
+	GLuint VBO, EBO, VAO;
+	FMOD::System* audioSystem;
 
-	GLuint texture;
-	GLuint texture1;
+	CCamera* gameCamera;
 
-	GLfloat currentTime;
+	CInput* GameInputs;
+
+	CTextLabel* labelExample;
+
+	CPyramid* gamePyramid;
+
+	GLfloat currentTime, previousTime, deltaTime;
 	GLint program;
 };
