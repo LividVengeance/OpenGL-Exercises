@@ -45,7 +45,7 @@ CGameManager::CGameManager(int argc, char** argv)
 	// Enabling Culling
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 
 	// Depth testing/function
 	glEnable(GL_DEPTH_TEST);
@@ -53,6 +53,9 @@ CGameManager::CGameManager(int argc, char** argv)
 
 	program = CShaderLoader::CreateProgram("Resources/Shaders/Basic.vs",
 		"Resources/Shaders/Basic.fs");
+
+	// Create Camera One
+	gameCamera = new CCamera(&program);
 
 	// Setup the UI
 	labelExample = new CTextLabel("Score: 0", "Resources/Fonts/arial.ttf", glm::vec2(10.0f, 570.0f), glm::vec3(0.0f, 1.0f, 0.5f), 0.5f);
@@ -64,6 +67,7 @@ CGameManager::CGameManager(int argc, char** argv)
 	//backingTrack.PlaySound();
 
 	gamePyramid = new CPyramid(gameCamera, program);
+	gameActor = new CActor(GameInputs, gameCamera, program);
 }
 
 CGameManager::~CGameManager()
@@ -72,24 +76,16 @@ CGameManager::~CGameManager()
 
 void CGameManager::Render()
 {
-	// Clear Depth Buffer
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	glClear(GL_COLOR_BUFFER_BIT);
-
 	glUseProgram(program);
 
 	// Create Camera One
-	CCamera CamOne(program);
-	mat4 view = CamOne.CameraView();
-
-	gamePyramid->Render();
-
-
-	GLuint viewLoc = glGetUniformLocation(program, "view");
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(view));
+	view = gameCamera->CameraView();
 
 	GLint currentTimeLoc = glGetUniformLocation(program, "currentTime");
 	glUniform1f(currentTimeLoc, currentTime);
+
+	gamePyramid->Render();
 
 	glBindVertexArray(0);		// Unbinding VAO
 	glUseProgram(0);
@@ -107,6 +103,8 @@ void CGameManager::Update()
 
 	// Update Camera
 	gameCamera->Update(deltaTime);
+
+	gameActor->Render();
 
 	// Update Audio System
 	audioSystem->update();

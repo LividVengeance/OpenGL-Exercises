@@ -10,6 +10,7 @@
 #include "gtc/matrix_transform.hpp"
 #include "gtc/type_ptr.hpp"
 
+#include "CActor.h"
 #include "CAudio.h"
 #include "CCamera.h"
 #include "CInput.h"
@@ -48,6 +49,10 @@ private:
 	CTextLabel* labelExample;
 
 	CPyramid* gamePyramid;
+	CActor* gameActor;
+	mat4 view;
+
+	float timeElapsed = 0;
 
 	GLfloat currentTime, previousTime, deltaTime;
 	GLint program;

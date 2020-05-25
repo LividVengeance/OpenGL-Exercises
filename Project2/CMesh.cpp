@@ -5,11 +5,11 @@ CMesh::CMesh(GLint program, CCamera* camera, float xSize, float ySize, const cha
 	programMesh = program;
 
 	GLfloat vertices[]{
-		// Position				// Color			// Texture Coords
-		 -1.0f,	0.0f, -1.0f,	1.0f, 1.0f, 0.0f,	0.0f, 0.0f,	// 0
-		 -1.0f,	0.0f,  1.0f,	1.0f, 0.0f, 0.0f,	0.0f, 1.0f,	// 1
-		  1.0f, 0.0f,  1.0f,	0.0f, 1.0f,	0.0f,	1.0f, 1.0f,	// 2
-		  1.0f, 0.0f, -1.0f,	0.0f, 0.0f,	1.0f,	1.0f, 0.0f,	// 3
+		// Position				// Normal			// Texture Coords
+		 -1.0f,	0.0f, -1.0f,	0.0f, 0.0f, 0.0f,	0.0f, 0.0f,	// 0
+		 -1.0f,	0.0f,  1.0f,	0.0f, 0.0f, 0.0f,	0.0f, 1.0f,	// 1
+		  1.0f,	0.0f,  1.0f,	0.0f, 0.0f,	0.0f,	1.0f, 1.0f,	// 2
+		  1.0f,	0.0f, -1.0f,	0.0f, 0.0f,	0.0f,	1.0f, 0.0f,	// 3
 
 		  0.0f, 1.0f,  0.0f,	0.0f, 1.0f,	1.0f,	0.5f, 0.5f, // 4 Top Point
 	};
@@ -18,10 +18,22 @@ CMesh::CMesh(GLint program, CCamera* camera, float xSize, float ySize, const cha
 		3, 4, 2,	// Side 2
 		2, 4, 1,	// Side 3
 		1, 4, 0,	// Side 4
-		
+
 		1, 0, 3,	// Side Bottom Triangle 1
 		1, 3, 2,	// Side Bottom Triangle 2
 	};
+
+	//GLfloat vertices[]{
+	//	// Position							// Color						// Texture Coords
+	//	 -0.5f * xSize,    0.5f * ySize,	0.0f,	1.0f, 1.0f,	 1.0f,		0.0f,   0.0f,	// Top Right
+	//	  0.5f * xSize,    0.5f * ySize,	0.0f,	1.0f, 1.0f,	 1.0f,		1.0f,   0.0f,	// Bot Left
+	//	 -0.5f * xSize,   -0.5f * ySize,	0.0f,	1.0f, 1.0f,	 1.0f,		0.0f,   1.0f,	// Top Left
+	//	  0.5f * xSize,   -0.5f * ySize,	0.0f,	1.0f, 1.0f,	 1.0f,		1.0f,   1.0f,	// Bot Right
+	//};
+	//GLuint indices[] = {
+	//	1, 0, 2,	// First Triangle
+	//	3, 1, 2,	// Second Triangle
+	//};
 
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -113,7 +125,7 @@ void CMesh::Render()
 
 	GLuint modelLoc = glGetUniformLocation(programMesh, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(modelMatrix));
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0); // Drawing Background
+	glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_INT, 0); // Drawing Background
 }
 
 
@@ -132,7 +144,7 @@ void CMesh::Render(glm::mat4 _modelMatrix)
 
 	GLuint modelLoc = glGetUniformLocation(programMesh, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(_modelMatrix));
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0); // Drawing Background
+	glDrawElements(GL_TRIANGLES, 18, GL_UNSIGNED_INT, 0); // Drawing Background
 }
 
 void CMesh::Update()

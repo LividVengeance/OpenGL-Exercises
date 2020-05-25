@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CActor.cpp" />
     <ClCompile Include="CAudio.cpp" />
     <ClCompile Include="CCamera.cpp" />
     <ClCompile Include="CGameManager.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="CShaderLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CActor.h" />
     <ClInclude Include="CAudio.h" />
     <ClInclude Include="CCamera.h" />
     <ClInclude Include="CGameManager.h" />
@@ -164,8 +166,17 @@
     <ClInclude Include="Utilities.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Shaders\Basic-Normal.fs" />
+    <None Include="Resources\Shaders\Basic-Normal.vs" />
     <None Include="Resources\Shaders\Basic.fs" />
     <None Include="Resources\Shaders\Basic.vs" />
+    <None Include="Resources\Shaders\Blinn-Phong.fs" />
+    <None Include="Resources\Shaders\Phong - Ambient.fs" />
+    <None Include="Resources\Shaders\Phong - Diffuse.fs" />
+    <None Include="Resources\Shaders\Phong - Specular.fs" />
+    <None Include="Resources\Shaders\RimLighting.fs" />
+    <None Include="Resources\Shaders\Text.fs" />
+    <None Include="Resources\Shaders\Text.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

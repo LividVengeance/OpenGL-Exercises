@@ -16,13 +16,11 @@ using namespace glm;
 class CCamera
 {
 public:
-	CCamera(GLint program);
+	CCamera(GLint* program);
 	~CCamera();
 
-	GLfloat timeElapsed;
-
-	mat4 CameraView();
 	void Update(GLfloat deltaTime);
+	mat4 CameraView();
 
 private:
 
@@ -34,4 +32,10 @@ private:
 	vec3 camPos = vec3(0.0f, 0.0f, 3.0f);
 	vec3 camLookDir = vec3(0.0f, 0.0f, -1.0f);
 	vec3 camUpDir = vec3(0.0f, 1.0f, 0.0f);
+
+	float timeElapsed = 0;
+
+	GLint* program;
+
+	glm::mat4 view;
 };

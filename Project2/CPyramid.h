@@ -9,6 +9,11 @@ public:
 	~CPyramid();
 
 	void Render();
+	void Update();
+
+	vec3 pyramidPostion;
+	vec3 pyramidRotation;
+	vec3 pyramidScale;
 
 	CMesh* pyramidMesh;
 
