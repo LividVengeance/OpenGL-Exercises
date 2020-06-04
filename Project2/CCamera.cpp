@@ -2,19 +2,17 @@
 
 #include "CCamera.h"
 
-CCamera::CCamera(GLint* _program)
+CCamera::CCamera()
 {
-	program = _program;
-	// Orthographic Center Camera
-	mat4 proj;
+	// 3D Camera
+	camPos = vec3(0.0f, 0.0f, 3.0f);
+	camLookDir = vec3(0.0f, 0.0f, -1.0f);
+	camUpDir = vec3(0.0f, 1.0f, 0.0f);
 
-	/// Ortho Cam with origin (0,0) in the top left
-	float halfScreenWidth = (float)SCR_WIDTH * 0.5f;
-	float halfScreenHeight = (float)SCR_HEIGHT * 0.5f;
-	//proj = ortho(-halfScreenWidth, halfScreenWidth, -halfScreenHeight, halfScreenHeight, 0.1f, 100.0f);
-	proj = glm::perspective(45.0f, halfScreenWidth / halfScreenHeight, 0.1f, 10000.0f);
-	GLuint projLoc = glGetUniformLocation(*program, "proj");
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, value_ptr(proj));
+	// 2D Camera
+	camPos2D = vec3(0.0f, 0.0f, 3.0f);
+	camLookDir2D = vec3(0.0f, 0.0f, -1.0f);
+	camUpDir2D = vec3(0.0f, 1.0f, 0.0f);
 }
 
 CCamera::~CCamera()
@@ -23,18 +21,14 @@ CCamera::~CCamera()
 
 mat4 CCamera::CameraView()
 {
-	float halfScreenWidth = (float)SCR_WIDTH * 0.5f;
-	float halfScreenHeight = (float)SCR_HEIGHT * 0.5f;
-	mat4 proj;
 	proj = glm::perspective(45.0f, halfScreenWidth / halfScreenHeight, 0.1f, 10000.0f);
-
-	GLuint projLoc = glGetUniformLocation(*program, "proj");
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, value_ptr(proj));
-
-	GLuint viewLoc = glGetUniformLocation(*program, "view");
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(view));
-
 	return(view);
+}
+
+mat4 CCamera::CameraView2D()
+{
+	proj2D = ortho(-halfScreenWidth, halfScreenWidth, -halfScreenHeight, halfScreenHeight, 0.1f, 100.0f);
+	return(view2D);
 }
 
 void CCamera::Update(GLfloat deltaTime)
@@ -45,8 +39,28 @@ void CCamera::Update(GLfloat deltaTime)
 	camPos.y = 1.5f;
 	camPos.z = cos(timeElapsed) * radius;
 
-	//view = lookAt(camPos, camPos + camLookDir, camUpDir);
-	view = glm::lookAt(camPos,
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		camUpDir);
+	view = glm::lookAt(camPos, glm::vec3(0.0f, 0.0f, 0.0f), camUpDir);
+
+	proj = glm::perspective(45.0f, halfScreenWidth / halfScreenHeight, 0.1f, 10000.0f);
+}
+
+void CCamera::Update2D()
+{
+	view = glm::lookAt(camPos2D, camPos2D + camLookDir2D, camUpDir2D);
+	proj2D = ortho(-halfScreenWidth, halfScreenWidth, -halfScreenHeight, halfScreenHeight, 0.1f, 100.0f);
+}
+
+mat4 CCamera::CameraProjection()
+{
+	return(proj);
+}
+
+mat4 CCamera::CameraProjection2D()
+{
+	return(proj2D);
+}
+
+vec3 CCamera::GetCamPos()
+{
+	return(camPos);
 }

@@ -40,34 +40,30 @@ CGameManager::CGameManager(int argc, char** argv)
 	}
 
 	// Sets the clear colour
-	glClearColor(1.0, 0.0, 0.0, 1.0); // Sets to Red
+	glClearColor(23.0f / 256.0f, 27.0f / 256.0f, 27.0f / 256.0f, 1.0f);
 
 	// Enabling Culling
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
-	//glEnable(GL_CULL_FACE);
 
 	// Depth testing/function
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
-	program = CShaderLoader::CreateProgram("Resources/Shaders/Basic.vs",
-		"Resources/Shaders/Basic.fs");
+	// Create Camera
+	gameCamera = new CCamera();
 
-	// Create Camera One
-	gameCamera = new CCamera(&program);
+	// Create Input Controller
+	gameInput = new CInput();
 
-	// Setup the UI
-	labelExample = new CTextLabel("Score: 0", "Resources/Fonts/arial.ttf", glm::vec2(10.0f, 570.0f), glm::vec3(0.0f, 1.0f, 0.5f), 0.5f);
+/// GAME SCENES
+	// Creates the main menu scene
+	gameMainMenuScene = new CMainMenuScene(gameCamera, gameInput);
 
-	// Create Audio Syetem																									  
-	CreateAudioSystem();
-	// Creates and plays the background music
-	CAudio backingTrack("Resources/Audio/Background.mp3", audioSystem, true);
-	//backingTrack.PlaySound();
+	// Creates the play scene
+	gamePlayScene = new CPlayScene(gameCamera, gameInput);
 
-	gamePyramid = new CPyramid(gameCamera, program);
-	gameActor = new CActor(GameInputs, gameCamera, program);
+	currentScene = EMainMenuScene;
 }
 
 CGameManager::~CGameManager()
@@ -77,18 +73,16 @@ CGameManager::~CGameManager()
 void CGameManager::Render()
 {
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-	glUseProgram(program);
 
-	// Create Camera One
-	view = gameCamera->CameraView();
-
-	GLint currentTimeLoc = glGetUniformLocation(program, "currentTime");
-	glUniform1f(currentTimeLoc, currentTime);
-
-	gamePyramid->Render();
-
-	glBindVertexArray(0);		// Unbinding VAO
-	glUseProgram(0);
+	// Renders based on current scene
+	if (currentScene == EMainMenuScene)
+	{
+		gameMainMenuScene->Render();
+	}
+	else if (currentScene == EPlayScene)
+	{
+		gamePlayScene->Render();
+	}
 
 	glutSwapBuffers();
 }
@@ -101,40 +95,42 @@ void CGameManager::Update()
 	deltaTime = currentTime - previousTime;
 	previousTime = currentTime;
 
-	// Update Camera
-	gameCamera->Update(deltaTime);
-
-	gameActor->Render();
-
-	// Update Audio System
-	audioSystem->update();
+	// Updates based on current scene
+	if (currentScene == EMainMenuScene)
+	{
+		gameMainMenuScene->Update(&deltaTime, &currentScene);
+	}
+	else if (currentScene == EPlayScene)
+	{
+		gamePlayScene->Update(&deltaTime, &currentScene);
+	}
 
 	glutPostRedisplay();
 }
 
 void CGameManager::KeyBoardDown(unsigned char key, int x, int y)
 {
-	GameInputs->KeyboardDown(key, x, y);
+	gameInput->KeyboardDown(key, x, y);
 }
 
 void CGameManager::KeyBoardUp(unsigned char key, int x, int y)
 {
-	GameInputs->KeyboardUp(key, x, y);
+	gameInput->KeyboardUp(key, x, y);
 }
 
 void CGameManager::MousePassiveMove(int x, int y)
 {
-	GameInputs->MousePassiveMove(x, y);
+	gameInput->MousePassiveMove(x, y);
 }
 
 void CGameManager::MouseClick(int button, int state, int x, int y)
 {
-	GameInputs->MouseClick(button, state, x, y);
+	gameInput->MouseClick(button, state, x, y);
 }
 
 void CGameManager::MouseMove(int x, int y)
 {
-	GameInputs->MouseMove(x, y);
+	gameInput->MouseMove(x, y);
 }
 
 void KeyboardDownRedirect(unsigned char key, int x, int y)

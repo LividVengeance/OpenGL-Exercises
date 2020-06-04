@@ -14,11 +14,15 @@
 #include "CAudio.h"
 #include "CCamera.h"
 #include "CInput.h"
-#include "CMesh.h"
 #include "CPyramid.h"
 #include "CTextLabel.h"
 #include "CShaderLoader.h"
+#include "CSphere.h"
+#include "CPlane.h"
 
+// Program Scenes
+#include "CMainMenuScene.h"
+#include "CPlayScene.h"
 
 class CGameManager
 {
@@ -42,18 +46,24 @@ private:
 	GLuint VBO, EBO, VAO;
 	FMOD::System* audioSystem;
 
+	// Camera
 	CCamera* gameCamera;
 
-	CInput* GameInputs;
+	CInput* gameInput;
 
+	// Labels
 	CTextLabel* labelExample;
 
+	// Meshes
 	CPyramid* gamePyramid;
-	CActor* gameActor;
-	mat4 view;
+	CSphere* gameSphere;
+	CPlane* gamePlane;
+
+	// Program Scenes
+	CMainMenuScene* gameMainMenuScene;
+	CPlayScene* gamePlayScene;
 
 	float timeElapsed = 0;
-
+	ESceneManager currentScene;
 	GLfloat currentTime, previousTime, deltaTime;
-	GLint program;
 };

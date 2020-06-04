@@ -16,26 +16,40 @@ using namespace glm;
 class CCamera
 {
 public:
-	CCamera(GLint* program);
+	CCamera();
 	~CCamera();
 
+	// 3D Camera
 	void Update(GLfloat deltaTime);
 	mat4 CameraView();
+	mat4 CameraProjection();
+
+	// 2D Camera
+	void Update2D();
+	mat4 CameraView2D();
+	mat4 CameraProjection2D();
+
+	vec3 GetCamPos();
 
 private:
+	float halfScreenWidth = Utils::SCR_WIDTH * 0.5f;
+	float halfScreenHeight = Utils::SCR_HEIGHT * 0.5f;
 
-	// Screen/Viewport size
-	const unsigned int SCR_WIDTH = Utils::SCR_WIDTH;
-	const unsigned int SCR_HEIGHT = Utils::SCR_HEIGHT;
+	// 3D Camera
+	vec3 camPos;
+	vec3 camLookDir;
+	vec3 camUpDir;
 
-	// Camera Variables
-	vec3 camPos = vec3(0.0f, 0.0f, 3.0f);
-	vec3 camLookDir = vec3(0.0f, 0.0f, -1.0f);
-	vec3 camUpDir = vec3(0.0f, 1.0f, 0.0f);
+	mat4 proj;
+	mat4 view;
+
+	// 2D Camera
+	vec3 camPos2D;
+	vec3 camLookDir2D;
+	vec3 camUpDir2D;
+
+	mat4 proj2D;
+	mat4 view2D;
 
 	float timeElapsed = 0;
-
-	GLint* program;
-
-	glm::mat4 view;
 };

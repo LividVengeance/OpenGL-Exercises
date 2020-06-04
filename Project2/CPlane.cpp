@@ -1,24 +1,17 @@
-#include "CPyramid.h"
+#include "CPlane.h"
 
-CPyramid::CPyramid()
+CPlane::CPlane(float scaleX, float scaleY)
 {
 	GLfloat vertices[]{
-		// Position				// Normal			// Texture Coords
-		 -1.0f,	0.0f, -1.0f,	0.0f, 0.0f, 0.0f,	0.0f, 0.0f,	// 0
-		 -1.0f,	0.0f,  1.0f,	0.0f, 0.0f, 0.0f,	0.0f, 1.0f,	// 1
-		  1.0f,	0.0f,  1.0f,	0.0f, 0.0f,	0.0f,	1.0f, 1.0f,	// 2
-		  1.0f,	0.0f, -1.0f,	0.0f, 0.0f,	0.0f,	1.0f, 0.0f,	// 3
-
-		  0.0f, 1.0f,  0.0f,	0.0f, 1.0f,	1.0f,	0.5f, 0.5f, // 4 Top Point
+		// Position									// Color				// Texture Coords
+		 -0.5f * scaleX,  0.5f * scaleY, 0.0f,		1.0f, 1.0f,	 1.0f,		0.0f,   0.0f,	// Top Right
+		  0.5f * scaleX,  0.5f * scaleY, 0.0f,		1.0f, 1.0f,	 1.0f,		1.0f,   0.0f,	// Bot Left
+		 -0.5f * scaleX, -0.5f * scaleY, 0.0f,		1.0f, 1.0f,	 1.0f,		0.0f,   1.0f,	// Top Left
+		  0.5f * scaleX, -0.5f * scaleY, 0.0f,		1.0f, 1.0f,	 1.0f,		1.0f,   1.0f,	// Bot Right
 	};
 	GLuint indices[] = {
-		0, 4, 3,	// Side 1
-		3, 4, 2,	// Side 2
-		2, 4, 1,	// Side 3
-		1, 4, 0,	// Side 4
-
-		1, 0, 3,	// Side Bottom Triangle 1
-		1, 3, 2,	// Side Bottom Triangle 2
+		1, 0, 2,	// First Triangle
+		3, 1, 2,	// Second Triangle
 	};
 
 	indiceCount = sizeof(indices) / sizeof(int);
@@ -67,16 +60,17 @@ CPyramid::CPyramid()
 	glEnableVertexAttribArray(2);
 }
 
-CPyramid::~CPyramid()
+CPlane::~CPlane()
 {
+
 }
 
-GLuint* CPyramid::GetVAO()
+GLuint* CPlane::GetVAO()
 {
 	return(&VAO);
 }
 
-int CPyramid::GetIndiceCount()
+int CPlane::GetIndiceCount()
 {
 	return(indiceCount);
 }

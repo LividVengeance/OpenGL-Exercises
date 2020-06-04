@@ -2,7 +2,6 @@
 #include <glew.h>
 #include <freeglut.h>
 #include <SOIL.h>
-#include <fmod.hpp>
 #include <iostream>
 
 #include "glm.hpp"
@@ -30,9 +29,15 @@ public:
 	void MousePassiveMove(int x, int y);
 	void MouseClick(int button, int state, int x, int y);
 	void MouseMove(int x, int y);
+
+	int getMouseX();
+	int getMouseY();
+	bool getClick(int button);
+
+	int mouseX = 0;
+	int mouseY = 0;
+
 private:
 	InputState KeyState[255];
 	InputState MouseState[3];
-
 };
-

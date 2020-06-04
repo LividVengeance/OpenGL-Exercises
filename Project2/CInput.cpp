@@ -15,6 +15,8 @@ void CInput::ProcessInput()
 
 void CInput::MouseClick(int button, int state, int x, int y)
 {
+	mouseX = x;
+	mouseY = y;
 	if (button >= 3)
 	{
 		return;
@@ -47,6 +49,32 @@ bool CInput::getKeyState(char key)
 {
 	// Gets KeyBoard State
 	if (KeyState[key] == INPUT_DOWN)
+	{
+		return(true);
+	}
+	else
+	{
+		return(false);
+	}
+}
+
+int CInput::getMouseX()
+{
+	//float offSetX = Utils::SCR_WIDTH / 2;
+	//mouseX = offSetX - mouseX;
+	return(mouseX);
+}
+
+int CInput::getMouseY()
+{
+	//float offSetY = Utils::SCR_HEIGHT / 2;
+	//mouseY = offSetY - mouseY;
+	return(mouseY);
+}
+
+bool CInput::getClick(int button)
+{
+	if (MouseState[button] == INPUT_DOWN)
 	{
 		return(true);
 	}

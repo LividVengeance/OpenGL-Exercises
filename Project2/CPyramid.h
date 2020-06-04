@@ -1,21 +1,17 @@
 #pragma once
 #include "CCamera.h"
-#include "CMesh.h"
 
 class CPyramid
 {
 public:
-	CPyramid(CCamera* camera, GLint program);
+	CPyramid();
 	~CPyramid();
 
-	void Render();
-	void Update();
+	GLuint* GetVAO();
+	int GetIndiceCount();
 
-	vec3 pyramidPostion;
-	vec3 pyramidRotation;
-	vec3 pyramidScale;
-
-	CMesh* pyramidMesh;
+	GLuint VAO;
+	float indiceCount;
 
 private:
 

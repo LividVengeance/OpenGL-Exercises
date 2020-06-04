@@ -1,25 +1,9 @@
 #pragma once
+#include "CObject.h"
 
-#include "CMesh.h"
-#include "CInput.h"
-
-class CActor
+class CActor : public CObject
 {
 public:
-	CActor(CInput* gameInputs, CCamera* camera, GLint program);
-	~CActor();
-
-	void Update();
-	void Render();
-	void MoveInput(GLfloat deltaTime);
-
-	vec3 actorPostion;
-	vec3 actorRotation;
-	vec3 actorScale;
-
-	CMesh* actorMesh;
-	glm::mat4 model;
-
-private:
-	CInput* actorInputs;
+	CActor(GLint* _program, GLuint* _VAO, int _indiceCount, CCamera* _gameCamera, GLuint* _texture);
+	void MoveInput(GLfloat deltaTime, CInput* gameInput);
 };

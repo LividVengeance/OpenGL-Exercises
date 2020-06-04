@@ -7,13 +7,17 @@ out vec3 fragPos;
 out vec3 fragNormal;
 out vec2 fragTexCoord;
 
-uniform mat4 MVP;
 uniform mat4 model;
+uniform mat4 view;
+uniform mat4 proj;
 
-void main(void)
+
+void main()
 {
-	gl_Position = MVP * vec4(position, 1.0f);
-	fragPos = vec3(model * vec4(position, 1.0f));
-	fragNormal = mat3(transpose(inverse(model))) * normal;
-	fragTexCoord = texCoord;
+    gl_Position = proj * view * model * vec4(position, 1.0);
+    fragPos = vec3(model * vec4(position, 1.0));
+    fragNormal = mat3(transpose(inverse(model))) * normal;
+
+    //fragNormal = normal;
+    fragTexCoord = texCoord;
 }

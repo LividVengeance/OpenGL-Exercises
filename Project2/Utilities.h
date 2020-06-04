@@ -1,11 +1,11 @@
 #pragma once
 
-namespace Utils
+// Program Scenes
+enum ESceneManager
 {
-	// Screen Size
-	const unsigned int SCR_WIDTH = 1200;
-	const unsigned int SCR_HEIGHT = 600;
-}
+	EMainMenuScene,
+	EPlayScene,
+};
 
 // KeyBoard States
 enum InputState
@@ -15,3 +15,10 @@ enum InputState
 	INPUT_UP_FIRST,
 	INPUT_DOWN_FIRST,
 };
+
+namespace Utils
+{
+	// Screen Size
+	const unsigned int SCR_WIDTH = 1200;
+	const unsigned int SCR_HEIGHT = 600;
+}
