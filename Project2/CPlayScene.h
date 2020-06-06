@@ -3,6 +3,7 @@
 #include "CShaderLoader.h"
 #include "CCamera.h"
 #include "CInput.h"
+#include "CTextLabel.h"
 
 #include "CActorEnemy.h"
 #include "CActor.h"
@@ -32,6 +33,10 @@ public:
 	CActor* gameActor;
 	CActorEnemy* actorEnemy;
 	CSkybox* gameSkybox;
+
+	// Labels
+	CTextLabel* actorHealthLabel;
+	CTextLabel* actorScoreLabel;
 
 	GLint program;
 	GLint skyboxProgram;

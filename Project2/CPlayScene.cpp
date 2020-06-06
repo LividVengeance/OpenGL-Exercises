@@ -23,6 +23,10 @@ CPlayScene::CPlayScene(CCamera* _gameCamera, CInput* _gameInput)
 
 	actorSphere = new CSphere();
 	gameActor = new CActor(&program, actorSphere->GetVAO(), actorSphere->GetIndiceCount(), gameCamera, &actorTex);
+
+	// Labels
+	actorHealthLabel = new CTextLabel("Health: ", "Resources/Fonts/arial.ttf", glm::vec2(10.0f, 560.0f), glm::vec3(1.0f, 0.0f, 0.0f), 0.5f);
+	actorScoreLabel = new CTextLabel("Score: ", "Resources/Fonts/arial.ttf", glm::vec2(10.0f, 520.0f), glm::vec3(1.0f, 0.0f, 0.0f), 0.5f);
 }
 
 CPlayScene::~CPlayScene()
@@ -40,6 +44,10 @@ void CPlayScene::Render()
 	//actorEnemy->Render();
 	model->Render(actorEnemy);
 
+	// Labels
+	actorHealthLabel->Render();
+	actorScoreLabel->Render();
+
 	glBindVertexArray(0);		// Unbinding VAO
 	glUseProgram(0);
 }
@@ -54,6 +62,16 @@ void CPlayScene::Update(GLfloat* deltaTime, ESceneManager* _currentScene)
 	gameActor->Update();
 	gameActor->MoveInput(*deltaTime, gameInput);
 	actorEnemy->MoveActor(*deltaTime);
+
+	// Updates the score label
+	std::string scoreStr = "Score: ";
+	scoreStr += std::to_string(gameActor->actorScore);
+	actorScoreLabel->SetText(scoreStr);
+
+	// Updates the health label
+	std::string healthStr = "Health: ";
+	healthStr += std::to_string(gameActor->actorHealth);
+	actorHealthLabel->SetText(healthStr);
 }
 
 void CPlayScene::TextureGen(const char* textureLocation, GLuint* texture)
