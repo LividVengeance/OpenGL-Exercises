@@ -23,8 +23,6 @@ CPlayScene::CPlayScene(CCamera* _gameCamera, CInput* _gameInput)
 
 	actorSphere = new CSphere();
 	gameActor = new CActor(&program, actorSphere->GetVAO(), actorSphere->GetIndiceCount(), gameCamera, &actorTex);
-
-	gameActor->objPosition.x += 2000;
 }
 
 CPlayScene::~CPlayScene()
@@ -34,8 +32,6 @@ CPlayScene::~CPlayScene()
 void CPlayScene::Render()
 {
 	glUseProgram(program);
-
-	view = gameCamera->CameraView();
 
 	gameSkybox->Render();
 

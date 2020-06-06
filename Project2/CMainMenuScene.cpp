@@ -42,12 +42,10 @@ void CMainMenuScene::Render()
 	glUseProgram(program);
 	glDisable(GL_CULL_FACE);
 
-	view = gameCamera->CameraView2D();
+	playButtonObj->Render2D();
+	exitButtonObj->Render2D();
 
-	playButtonObj->Render();
-	exitButtonObj->Render();
-
-	titleObj->Render();
+	titleObj->Render2D();
 
 	glBindVertexArray(0);		// Unbinding VAO
 	glUseProgram(0);
