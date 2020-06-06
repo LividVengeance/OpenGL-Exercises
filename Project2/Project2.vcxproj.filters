@@ -52,6 +52,15 @@
     <Filter Include="Resource Files\Text">
       <UniqueIdentifier>{5b7a0c04-2cd2-4552-988a-8f22b7545cef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Model">
+      <UniqueIdentifier>{eb34d8bf-e733-49c7-871e-2f395e9529c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\SkyBox">
+      <UniqueIdentifier>{1cf78455-c72f-4d6e-92fc-f21bbc763e11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Reflection">
+      <UniqueIdentifier>{24fa38ac-be6c-4bc9-bb17-6bc832c225bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CGameManager.cpp">
@@ -95,6 +104,12 @@
     </ClCompile>
     <ClCompile Include="CInput.cpp">
       <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="CActorEnemy.cpp">
+      <Filter>Source Files\Actors</Filter>
+    </ClCompile>
+    <ClCompile Include="CSkybox.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +155,18 @@
     <ClInclude Include="Utilities.h">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
+    <ClInclude Include="CActorEnemy.h">
+      <Filter>Header Files\Actors</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="CSkybox.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\RimLighting.fs">
@@ -174,6 +201,24 @@
     </None>
     <None Include="Resources\Shaders\Text.vs">
       <Filter>Resource Files\Text</Filter>
+    </None>
+    <None Include="Resources\Shaders\Model.vs">
+      <Filter>Resource Files\Model</Filter>
+    </None>
+    <None Include="Resources\Shaders\Model.fs">
+      <Filter>Resource Files\Model</Filter>
+    </None>
+    <None Include="Resources\Shaders\skybox.fs">
+      <Filter>Resource Files\SkyBox</Filter>
+    </None>
+    <None Include="Resources\Shaders\skybox.vs">
+      <Filter>Resource Files\SkyBox</Filter>
+    </None>
+    <None Include="Resources\Shaders\Reflection.fs">
+      <Filter>Resource Files\Reflection</Filter>
+    </None>
+    <None Include="Resources\Shaders\Reflection.vs">
+      <Filter>Resource Files\Reflection</Filter>
     </None>
   </ItemGroup>
 </Project>

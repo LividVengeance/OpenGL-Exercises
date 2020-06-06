@@ -22,7 +22,7 @@ CMainMenuScene::CMainMenuScene(CCamera* _gameCamera, CInput* _gameInput)
 	exitButtonObj = new CObject(&program, buttonPlane->GetVAO(), buttonPlane->GetIndiceCount(), gameCamera, &exitButtonTex);
 	titleObj = new CObject(&program, buttonPlane->GetVAO(), buttonPlane->GetIndiceCount(), gameCamera, &titleTex);
 
-	playButtonObj->objScaleAmount = 0.005f;
+	playButtonObj->objScaleAmount = 0.5f;
 	playButtonObj->objPosition.x = -1.5f;
 	playButtonObj->objPosition.y = 0.3f;
 

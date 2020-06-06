@@ -5,19 +5,26 @@ CPlayScene::CPlayScene(CCamera* _gameCamera, CInput* _gameInput)
 	gameCamera = _gameCamera;
 	gameInput = _gameInput;
 
+	skyboxProgram = CShaderLoader::CreateProgram("Resources/Shaders/skybox.vs",
+		"Resources/Shaders/skybox.fs");
+
 	program = CShaderLoader::CreateProgram("Resources/Shaders/Basic-Normal.vs",
-		"Resources/Shaders/RimLighting.fs");
+		"Resources/Shaders/Blinn-Phong.fs");
 
 	// Gen Textures For Actor
 	const char* fileLocationPlay = "Resources/Textures/BackgroundSprite.png";
 	TextureGen(fileLocationPlay, &actorTex);
 
-	actorPyramid = new CPyramid();
-	//gameActor = new CActor(&program, actorPyramid->GetVAO(), actorPyramid->GetIndiceCount(), gameCamera, &actorTex);
+	gameSkybox = new CSkybox(&skyboxProgram, gameCamera);
+
+	actorEnemyPyramid = new CPyramid();
+	model = new Model("Resources/Models/Tank/Tank.obj", gameCamera);
+	actorEnemy = new CActorEnemy(&program, actorEnemyPyramid->GetVAO(), actorEnemyPyramid->GetIndiceCount(), gameCamera, &actorTex);
 
 	actorSphere = new CSphere();
 	gameActor = new CActor(&program, actorSphere->GetVAO(), actorSphere->GetIndiceCount(), gameCamera, &actorTex);
 
+	gameActor->objPosition.x += 2000;
 }
 
 CPlayScene::~CPlayScene()
@@ -30,8 +37,12 @@ void CPlayScene::Render()
 
 	view = gameCamera->CameraView();
 
+	gameSkybox->Render();
+
 	// Actors
 	gameActor->Render();
+	//actorEnemy->Render();
+	model->Render(actorEnemy);
 
 	glBindVertexArray(0);		// Unbinding VAO
 	glUseProgram(0);
@@ -41,9 +52,13 @@ void CPlayScene::Update(GLfloat* deltaTime, ESceneManager* _currentScene)
 {
 	currentScene = _currentScene;
 	gameCamera->Update(*deltaTime);
+	gameSkybox->Update();
+
+	gameActor->Update();
 
 	// Actors
 	gameActor->MoveInput(*deltaTime, gameInput);
+	actorEnemy->MoveActor(*deltaTime);
 }
 
 void CPlayScene::TextureGen(const char* textureLocation, GLuint* texture)

@@ -43,8 +43,12 @@ CGameManager::CGameManager(int argc, char** argv)
 	glClearColor(23.0f / 256.0f, 27.0f / 256.0f, 27.0f / 256.0f, 1.0f);
 
 	// Enabling Culling
+	//glCullFace(GL_BACK);
+	//glFrontFace(GL_CCW);
+	// Enabling Culling
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
+	glEnable(GL_CULL_FACE);
 
 	// Depth testing/function
 	glEnable(GL_DEPTH_TEST);

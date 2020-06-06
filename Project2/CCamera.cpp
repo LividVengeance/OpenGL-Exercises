@@ -28,7 +28,7 @@ mat4 CCamera::CameraView()
 mat4 CCamera::CameraView2D()
 {
 	proj2D = ortho(-halfScreenWidth, halfScreenWidth, -halfScreenHeight, halfScreenHeight, 0.1f, 100.0f);
-	return(view2D);
+	return(glm::lookAt(camPos2D, camPos2D + camLookDir2D, camUpDir2D));
 }
 
 void CCamera::Update(GLfloat deltaTime)

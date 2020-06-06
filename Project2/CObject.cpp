@@ -47,10 +47,10 @@ void CObject::Render()
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(objModelMatrix));
 
 	GLuint projection = glGetUniformLocation(*program, "proj");
-	glUniformMatrix4fv(projection, 1, GL_FALSE, value_ptr(gameCamera->CameraProjection()));
+	glUniformMatrix4fv(projection, 1, GL_FALSE, value_ptr(gameCamera->CameraProjection2D()));
 
 	GLuint view = glGetUniformLocation(*program, "view");
-	glUniformMatrix4fv(view, 1, GL_FALSE, value_ptr(gameCamera->CameraView()));
+	glUniformMatrix4fv(view, 1, GL_FALSE, value_ptr(gameCamera->CameraView2D()));
 
 	GLuint camPos = glGetUniformLocation(*program, "camPos");
 	glUniform3fv(camPos, 1, value_ptr(gameCamera->GetCamPos()));

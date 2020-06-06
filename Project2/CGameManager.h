@@ -18,6 +18,7 @@
 #include "CTextLabel.h"
 #include "CShaderLoader.h"
 #include "CSphere.h"
+#include "CSkybox.h"
 #include "CPlane.h"
 
 // Program Scenes

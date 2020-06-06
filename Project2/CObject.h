@@ -18,7 +18,7 @@ public:
 	vec3 objRotaion;
 	float objAngleRotation;
 	float objScaleAmount;
-	
+	mat4 objModelMatrix;
 
 protected:
 	GLint* program;
@@ -27,6 +27,6 @@ protected:
 	CCamera* gameCamera;
 	GLuint* texture;
 
-	mat4 objModelMatrix;
+	
 };
 
