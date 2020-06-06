@@ -9,30 +9,28 @@ CMainMenuScene::CMainMenuScene(CCamera* _gameCamera, CInput* _gameInput)
 		"Resources/Shaders/Basic.fs");
 
 	// Gen Textures For Buttons
-	const char* fileLocationPlay = "Resources/Textures/playSprite.png";
+	const char* fileLocationPlay = "Resources/Textures/MainMenu/playSprite.png";
 	TextureGen(fileLocationPlay, &playButtonTex);
-	const char* fileLocationExit = "Resources/Textures/exitSprite.png";
+	const char* fileLocationExit = "Resources/Textures/MainMenu/exitSprite.png";
 	TextureGen(fileLocationExit, &exitButtonTex);
-	const char* fileLocationTitle = "Resources/Textures/titleSprite.png";
+	const char* fileLocationTitle = "Resources/Textures/MainMenu/titleSprite.png";
 	TextureGen(fileLocationTitle, &titleTex);
 	// Create Type
-	buttonPlane = new CPlane(200.0f, 50.0f);
+	buttonPlane = new CPlane(150.0f, 50.0f);
+	titlePlane = new CPlane(200.0f, 50.0f);
 	
 	playButtonObj = new CObject(&program, buttonPlane->GetVAO(), buttonPlane->GetIndiceCount(), gameCamera, &playButtonTex);
 	exitButtonObj = new CObject(&program, buttonPlane->GetVAO(), buttonPlane->GetIndiceCount(), gameCamera, &exitButtonTex);
-	titleObj = new CObject(&program, buttonPlane->GetVAO(), buttonPlane->GetIndiceCount(), gameCamera, &titleTex);
+	titleObj = new CObject(&program, titlePlane->GetVAO(), titlePlane->GetIndiceCount(), gameCamera, &titleTex);
 
-	playButtonObj->objScaleAmount = 0.5f;
-	playButtonObj->objPosition.x = -1.5f;
-	playButtonObj->objPosition.y = 0.3f;
+	playButtonObj->objPosition.x -= (Utils::SCR_WIDTH/2) - 200;
+	playButtonObj->objPosition.y += (Utils::SCR_HEIGHT/2) - 150;
 
-	exitButtonObj->objScaleAmount = 0.005f;
-	exitButtonObj->objPosition.x = -1.5f;
-	exitButtonObj->objPosition.y = 0.6f;
+	exitButtonObj->objPosition.x -= (Utils::SCR_WIDTH / 2) - 200;
+	exitButtonObj->objPosition.y += (Utils::SCR_HEIGHT / 2) - 200;
 
-	titleObj->objScaleAmount = 0.005f;
-	titleObj->objPosition.x = -1.3f;
-	titleObj->objPosition.y = 0.9f;
+	titleObj->objPosition.x -= (Utils::SCR_WIDTH / 2) - 225;
+	titleObj->objPosition.y += (Utils::SCR_HEIGHT / 2) - 75;
 }
 
 CMainMenuScene::~CMainMenuScene()
@@ -74,7 +72,7 @@ void CMainMenuScene::Update(GLfloat* deltaTime, ESceneManager* _currentScene)
 	if (Button(200, 50, exitButtonObj))
 	{
 		// Exit program
-		//glutDestroyWindow(program);
+		glutDestroyWindow(program);
 	}
 }
 

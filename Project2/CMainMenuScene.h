@@ -40,6 +40,7 @@ public:
 	CObject* titleObj;
 	// Button Type
 	CPlane* buttonPlane;
+	CPlane* titlePlane;
 
 	CInput* gameInput;
 

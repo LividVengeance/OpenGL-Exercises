@@ -54,9 +54,8 @@ void CPlayScene::Update(GLfloat* deltaTime, ESceneManager* _currentScene)
 	gameCamera->Update(*deltaTime);
 	gameSkybox->Update();
 
-	gameActor->Update();
-
 	// Actors
+	gameActor->Update();
 	gameActor->MoveInput(*deltaTime, gameInput);
 	actorEnemy->MoveActor(*deltaTime);
 }
