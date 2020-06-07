@@ -16,9 +16,9 @@ CPlayScene::CPlayScene(CCamera* _gameCamera, CInput* _gameInput)
 	TextureGen(fileLocationPlay, &actorTex);
 
 	gameSkybox = new CSkybox(&skyboxProgram, gameCamera);
-
+	
+	//model = new Model("Resources/Models/Tank/Tank.obj", gameCamera);
 	actorEnemyPyramid = new CPyramid();
-	model = new Model("Resources/Models/Tank/Tank.obj", gameCamera);
 	actorEnemy = new CActorEnemy(&program, actorEnemyPyramid->GetVAO(), actorEnemyPyramid->GetIndiceCount(), gameCamera, &actorTex);
 
 	actorSphere = new CSphere();
@@ -41,8 +41,9 @@ void CPlayScene::Render()
 
 	// Actors
 	gameActor->Render();
-	//actorEnemy->Render();
-	model->Render(actorEnemy);
+	actorEnemy->Render();
+
+	//model->Render(actorEnemy);
 
 	// Labels
 	actorHealthLabel->Render();
@@ -61,7 +62,9 @@ void CPlayScene::Update(GLfloat* deltaTime, ESceneManager* _currentScene)
 	// Actors
 	gameActor->Update();
 	gameActor->MoveInput(*deltaTime, gameInput);
-	actorEnemy->MoveActor(*deltaTime);
+
+	actorEnemy->Update();
+	actorEnemy->SteeringSeek(*deltaTime, gameActor);
 
 	// Updates the score label
 	std::string scoreStr = "Score: ";
